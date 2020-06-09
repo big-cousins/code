@@ -16,33 +16,33 @@
 
 代码如下
 ```
-	class Solution {
-	public:
-		int count = 0;
-		int translateNum(int num) {
-			if(num < 0)
-				return 0;
-			calculate(num);
-			return count;
+class Solution {
+public:
+	int count = 0;
+	int translateNum(int num) {
+		if(num < 0)
+			return 0;
+		calculate(num);
+		return count;
+	}
+
+	void calculate(int num)
+	{
+		// 如果num为个位数时
+		if (num < 10) {
+			count++;
+			return;
 		}
 
-		void calculate(int num)
-		{
-			// 如果num为个位数时
-			if (num < 10) {
-				count++;
-				return;
-			}
-
-			// 取出倒数第二位和倒数第一位
-			int single = num % 10;
-			int two = num % 100;
-			calculate(num / 10);
-			if(two >= 10 && two <= 25)
-			{	
-				calculate(num / 100);
-			} 
+		// 取出倒数第二位和倒数第一位
+		int single = num % 10;
+		int two = num % 100;
+		calculate(num / 10);
+		if(two >= 10 && two <= 25)
+		{	
+			calculate(num / 100);
+		} 
         
-		}
-	};
+	}
+};
 ```

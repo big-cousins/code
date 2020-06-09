@@ -45,4 +45,78 @@ public:
         
 	}
 };
+```  
+
+## 面试题 04.03. 特定深度节点链表  
+给定一棵二叉树，设计一个算法，创建含有某一深度上所有节点的链表（比如，若一棵树的深度为 D，则会创建出 D 个链表）。返回一个包含所有深度的链表的数组。  
+示例：  
+![示例](C:\picture_tmp\leetcode.PNG)  
+题解：  
+利用剑指offer里面的解法，即利用一个队列来解  
+队列q：[root]
+第一次循环时，遍历1次
+&emsp; 遍历到root，然后将root的左右子结点放进去，此时q：[2, 3]  
+第二次循环时，遍历两次  
+&emsp; 遍历到2，将2的子结点放入队列后面，此时q：[3,4,5]   
+&emsp; 遍历到3，将3的子结点放入队列后面，此时q：[4,5,7]  
+接着第三次，第四次循环  
+代码如下:  
+```
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<ListNode*> listOfDepth(TreeNode* tree) {
+        vector<ListNode*> result;
+        if (tree == NULL)
+            return result;
+        // 利用队列先进先出的特性
+        queue<TreeNode*> q;
+        q.push(tree);
+        while(!q.empty())
+        {
+            ListNode* tmp = NULL;
+            int size = q.size();
+            for(int i = 0; i < size; ++i)
+            {
+                struct TreeNode* tree_tmp= q.front();
+                q.pop();
+                ListNode* node = new ListNode(tree_tmp->val);
+                if(i == 0)
+                // 保存链表头
+                {
+                    result.push_back(node);
+                    tmp = node;
+                } else {
+                    // 连接链表
+                    tmp->next = node;
+                    // 保存最后一个结点
+                    tmp = node;
+                }
+
+                // 将子节点保存
+                if(tree_tmp->left) q.push(tree_tmp->left);
+                if(tree_tmp->right) q.push(tree_tmp->right);                   
+            }
+        
+        }
+
+        return result;
+    }
+};
 ```

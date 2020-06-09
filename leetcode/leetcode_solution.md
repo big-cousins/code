@@ -1,20 +1,20 @@
-# Ê÷
-## ÃæÊÔÌâ46. °ÑÊý×Ö·­Òë³É×Ö·û´®
-¸ø¶¨Ò»¸öÊý×Ö£¬ÎÒÃÇ°´ÕÕÈçÏÂ¹æÔò°ÑËü·­ÒëÎª×Ö·û´®£º0 ·­Òë³É ¡°a¡± £¬1 ·­Òë³É ¡°b¡±£¬¡­¡­£¬11 ·­Òë³É ¡°l¡±£¬¡­¡­£¬25 ·­Òë³É ¡°z¡±¡£
-Ò»¸öÊý×Ö¿ÉÄÜÓÐ¶à¸ö·­Òë¡£Çë±à³ÌÊµÏÖÒ»¸öº¯Êý£¬ÓÃÀ´¼ÆËãÒ»¸öÊý×ÖÓÐ¶àÉÙÖÖ²»Í¬µÄ·­Òë·½·¨¡£
-Ê¾Àý 1:
+# æ ‘
+## é¢è¯•é¢˜46. æŠŠæ•°å­—ç¿»è¯‘æˆå­—ç¬¦ä¸²
+ç»™å®šä¸€ä¸ªæ•°å­—ï¼Œæˆ‘ä»¬æŒ‰ç…§å¦‚ä¸‹è§„åˆ™æŠŠå®ƒç¿»è¯‘ä¸ºå­—ç¬¦ä¸²ï¼š0 ç¿»è¯‘æˆ â€œaâ€ ï¼Œ1 ç¿»è¯‘æˆ â€œbâ€ï¼Œâ€¦â€¦ï¼Œ11 ç¿»è¯‘æˆ â€œlâ€ï¼Œâ€¦â€¦ï¼Œ25 ç¿»è¯‘æˆ â€œzâ€ã€‚
+ä¸€ä¸ªæ•°å­—å¯èƒ½æœ‰å¤šä¸ªç¿»è¯‘ã€‚è¯·ç¼–ç¨‹å®žçŽ°ä¸€ä¸ªå‡½æ•°ï¼Œç”¨æ¥è®¡ç®—ä¸€ä¸ªæ•°å­—æœ‰å¤šå°‘ç§ä¸åŒçš„ç¿»è¯‘æ–¹æ³•ã€‚
+ç¤ºä¾‹ 1:
 
-ÊäÈë: 12258
-Êä³ö: 5
-½âÊÍ: 12258ÓÐ5ÖÖ²»Í¬µÄ·­Òë£¬·Ö±ðÊÇ"bccfi", "bwfi", "bczi", "mcfi"ºÍ"mzi"
+è¾“å…¥: 12258
+è¾“å‡º: 5
+è§£é‡Š: 12258æœ‰5ç§ä¸åŒçš„ç¿»è¯‘ï¼Œåˆ†åˆ«æ˜¯"bccfi", "bwfi", "bczi", "mcfi"å’Œ"mzi"
 
-Ìâ½â
-ÓÃ¶¯Ì¬¹æ»®µÄË¼ÏëÀ´½â£º
-ÏÈ¹éÄÉ£º
-12258£¬´ÓºóÍùÇ°¿ªÊ¼£¬ÒÔ8À´×÷Îª»ù´¡À´·­Òë£¬¿ÉÒÔ·­Òë³É8£¬58£¨µ±È»58ÊÇ²»Âú×ãµÄ£¬ÕâÀï¼ÙÉèÂú×ã£©£¬ÄÇÃ´½ÓÏÂÀ´£¬Ö»ÐèÒª·­Òë1225ºÍ122£º¾Í°Ñ¸Õ²ÅµÄË¼Â·ÔÙÀ´Ò»´Î¡£
-ÕâÀïÐèÒªÅÐ¶ÏÏÂÁ½Î»ÊýÊÇ·ñÔÚ[10, 25]µÄ·¶Î§ÄÚ¡£
+é¢˜è§£
+ç”¨åŠ¨æ€è§„åˆ’çš„æ€æƒ³æ¥è§£ï¼š
+å…ˆå½’çº³ï¼š
+12258ï¼Œä»ŽåŽå¾€å‰å¼€å§‹ï¼Œä»¥8æ¥ä½œä¸ºåŸºç¡€æ¥ç¿»è¯‘ï¼Œå¯ä»¥ç¿»è¯‘æˆ8ï¼Œ58ï¼ˆå½“ç„¶58æ˜¯ä¸æ»¡è¶³çš„ï¼Œè¿™é‡Œå‡è®¾æ»¡è¶³ï¼‰ï¼Œé‚£ä¹ˆæŽ¥ä¸‹æ¥ï¼Œåªéœ€è¦ç¿»è¯‘1225å’Œ122ï¼šå°±æŠŠåˆšæ‰çš„æ€è·¯å†æ¥ä¸€æ¬¡ã€‚
+è¿™é‡Œéœ€è¦åˆ¤æ–­ä¸‹ä¸¤ä½æ•°æ˜¯å¦åœ¨[10, 25]çš„èŒƒå›´å†…ã€‚
 
-´úÂëÈçÏÂ
+ä»£ç å¦‚ä¸‹
 ```
 class Solution {
 public:
@@ -28,13 +28,13 @@ public:
 
 	void calculate(int num)
 	{
-		// Èç¹ûnumÎª¸öÎ»ÊýÊ±
+		// å¦‚æžœnumä¸ºä¸ªä½æ•°æ—¶
 		if (num < 10) {
 			count++;
 			return;
 		}
 
-		// È¡³öµ¹ÊýµÚ¶þÎ»ºÍµ¹ÊýµÚÒ»Î»
+		// å–å‡ºå€’æ•°ç¬¬äºŒä½å’Œå€’æ•°ç¬¬ä¸€ä½
 		int single = num % 10;
 		int two = num % 100;
 		calculate(num / 10);
@@ -47,21 +47,21 @@ public:
 };
 ```  
 
-## ÃæÊÔÌâ 04.03. ÌØ¶¨Éî¶È½ÚµãÁ´±í  
-¸ø¶¨Ò»¿Ã¶þ²æÊ÷£¬Éè¼ÆÒ»¸öËã·¨£¬´´½¨º¬ÓÐÄ³Ò»Éî¶ÈÉÏËùÓÐ½ÚµãµÄÁ´±í£¨±ÈÈç£¬ÈôÒ»¿ÃÊ÷µÄÉî¶ÈÎª D£¬Ôò»á´´½¨³ö D ¸öÁ´±í£©¡£·µ»ØÒ»¸ö°üº¬ËùÓÐÉî¶ÈµÄÁ´±íµÄÊý×é¡£  
-Ê¾Àý£º  
-![Ê¾Àý](C:\picture_tmp\leetcode.PNG)  
-Ìâ½â£º  
-ÀûÓÃ½£Ö¸offerÀïÃæµÄ½â·¨£¬¼´ÀûÓÃÒ»¸ö¶ÓÁÐÀ´½â  
-¶ÓÁÐq£º[root]
-µÚÒ»´ÎÑ­»·Ê±£¬±éÀú1´Î
-&emsp; ±éÀúµ½root£¬È»ºó½«rootµÄ×óÓÒ×Ó½áµã·Å½øÈ¥£¬´ËÊ±q£º[2, 3]  
-µÚ¶þ´ÎÑ­»·Ê±£¬±éÀúÁ½´Î  
-&emsp; ±éÀúµ½2£¬½«2µÄ×Ó½áµã·ÅÈë¶ÓÁÐºóÃæ£¬´ËÊ±q£º[3,4,5]   
-&emsp; ±éÀúµ½3£¬½«3µÄ×Ó½áµã·ÅÈë¶ÓÁÐºóÃæ£¬´ËÊ±q£º[4,5,7]  
-½Ó×ÅµÚÈý´Î£¬µÚËÄ´ÎÑ­»·  
-´úÂëÈçÏÂ:  
-```
+## é¢è¯•é¢˜ 04.03. ç‰¹å®šæ·±åº¦èŠ‚ç‚¹é“¾è¡¨  
+ç»™å®šä¸€æ£µäºŒå‰æ ‘ï¼Œè®¾è®¡ä¸€ä¸ªç®—æ³•ï¼Œåˆ›å»ºå«æœ‰æŸä¸€æ·±åº¦ä¸Šæ‰€æœ‰èŠ‚ç‚¹çš„é“¾è¡¨ï¼ˆæ¯”å¦‚ï¼Œè‹¥ä¸€æ£µæ ‘çš„æ·±åº¦ä¸º Dï¼Œåˆ™ä¼šåˆ›å»ºå‡º D ä¸ªé“¾è¡¨ï¼‰ã€‚è¿”å›žä¸€ä¸ªåŒ…å«æ‰€æœ‰æ·±åº¦çš„é“¾è¡¨çš„æ•°ç»„ã€‚  
+ç¤ºä¾‹ï¼š 
+![ç¤ºä¾‹](C:\picture_tmp\leetcode.PNG)  
+é¢˜è§£ï¼š  
+åˆ©ç”¨å‰‘æŒ‡offeré‡Œé¢çš„è§£æ³•ï¼Œå³åˆ©ç”¨ä¸€ä¸ªé˜Ÿåˆ—æ¥è§£ï¼Œé˜Ÿåˆ—qï¼š[root]  
+ç¬¬ä¸€æ¬¡å¾ªçŽ¯æ—¶ï¼ŒéåŽ†1æ¬¡
+&emsp; éåŽ†åˆ°rootï¼Œç„¶åŽå°†rootçš„å·¦å³å­ç»“ç‚¹æ”¾è¿›åŽ»ï¼Œæ­¤æ—¶qï¼š[2, 3]  
+ç¬¬äºŒæ¬¡å¾ªçŽ¯æ—¶ï¼ŒéåŽ†ä¸¤æ¬¡  
+&emsp; éåŽ†åˆ°2ï¼Œå°†2çš„å­ç»“ç‚¹æ”¾å…¥é˜Ÿåˆ—åŽé¢ï¼Œæ­¤æ—¶qï¼š[3,4,5]   
+&emsp; éåŽ†åˆ°3ï¼Œå°†3çš„å­ç»“ç‚¹æ”¾å…¥é˜Ÿåˆ—åŽé¢ï¼Œæ­¤æ—¶qï¼š[4,5,7]  
+æŽ¥ç€ç¬¬ä¸‰æ¬¡ï¼Œç¬¬å››æ¬¡å¾ªçŽ¯  
+ä»£ç å¦‚ä¸‹:  
+```  
+
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -85,7 +85,7 @@ public:
         vector<ListNode*> result;
         if (tree == NULL)
             return result;
-        // ÀûÓÃ¶ÓÁÐÏÈ½øÏÈ³öµÄÌØÐÔ
+        // åˆ©ç”¨é˜Ÿåˆ—å…ˆè¿›å…ˆå‡ºçš„ç‰¹æ€§
         queue<TreeNode*> q;
         q.push(tree);
         while(!q.empty())
@@ -98,18 +98,18 @@ public:
                 q.pop();
                 ListNode* node = new ListNode(tree_tmp->val);
                 if(i == 0)
-                // ±£´æÁ´±íÍ·
+                // ä¿å­˜é“¾è¡¨å¤´
                 {
                     result.push_back(node);
                     tmp = node;
                 } else {
-                    // Á¬½ÓÁ´±í
+                    // è¿žæŽ¥é“¾è¡¨
                     tmp->next = node;
-                    // ±£´æ×îºóÒ»¸ö½áµã
+                    // ä¿å­˜æœ€åŽä¸€ä¸ªç»“ç‚¹
                     tmp = node;
                 }
 
-                // ½«×Ó½Úµã±£´æ
+                // å°†å­èŠ‚ç‚¹ä¿å­˜
                 if(tree_tmp->left) q.push(tree_tmp->left);
                 if(tree_tmp->right) q.push(tree_tmp->right);                   
             }

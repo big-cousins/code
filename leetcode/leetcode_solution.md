@@ -317,4 +317,49 @@ public:
         return dp[N / 2];  
     }
 };
+```  
+## 1305. 两棵二叉搜索树中的所有元素  
+### 题目  
+给你 root1 和 root2 这两棵二叉搜索树。
+
+请你返回一个列表，其中包含 两棵树 中的所有整数并按 升序 排序。.  
+### 代码  
+```
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> getAllElements(TreeNode* root1, TreeNode* root2) {
+        // 先转换成数组
+        vector<int> vec1, vec2;
+        translate(root1, vec1);
+        translate(root2, vec2);
+        vector<int> result(vec1.size() + vec2.size());
+        merge(vec1.begin(), vec1.end(), vec2.begin(), vec2.end(), result.begin());
+        return result;
+        // 将数组组合起来
+        //return combine(vec1, vec2);
+    }
+
+    void translate(TreeNode* root, vector<int>& vec)
+    {
+        if(root == NULL)
+            return;
+        // 递归左子树
+        if(root->left)
+            translate(root->left, vec);
+        vec.push_back(root->val);
+        // 递归右子树
+        if(root->right)
+            translate(root->right, vec);
+    }
+
+};
 ```

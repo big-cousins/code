@@ -200,4 +200,50 @@ ans=[1,1,4,2,1,1,0,0]
         
         return result;
     }
+```  
+
+## 1302. 层数最深叶子节点的和  
+### 题目  
+给你一棵二叉树，请你返回层数最深的叶子节点的和。  
+
+### 题解
+利用一个辅助队列，先进先出，  
+代码如下  
+```
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int deepestLeavesSum(TreeNode* root) {
+        // 用一个辅助队列，先进先出
+        queue<TreeNode*> queue1;
+        int sum = 0;
+        if(root == NULL)
+            return sum;
+        queue1.push(root);
+        while(!queue1.empty()){
+            sum = 0;
+            int length = queue1.size();
+            for(int i = 0; i < length; ++i)
+            {
+                // 先进先出，出队
+                TreeNode* tmp = queue1.front();
+                sum += tmp->val;
+                queue1.pop();
+                if(tmp->left)
+                    queue1.push(tmp->left);
+                if(tmp->right)
+                    queue1.push(tmp->right);
+            }
+        }
+        return sum;
+    }
+};
 ```

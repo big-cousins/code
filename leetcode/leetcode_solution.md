@@ -422,4 +422,144 @@ public:
         return sum;
     }
 };
+```  
+## 173. 二叉搜索树迭代器  
+### 题目  
+实现一个二叉搜索树迭代器。你将使用二叉搜索树的根节点初始化迭代器。
+
+调用 next() 将返回二叉搜索树中的下一个最小的数。  
+BSTIterator iterator = new BSTIterator(root);
+iterator.next();    // 返回 3
+iterator.next();    // 返回 7
+iterator.hasNext(); // 返回 true
+iterator.next();    // 返回 9
+iterator.hasNext(); // 返回 true
+iterator.next();    // 返回 15
+iterator.hasNext(); // 返回 true
+iterator.next();    // 返回 20
+iterator.hasNext(); // 返回 false
+
+### 代码  
+```
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class BSTIterator {
+public:
+    // 用双链表存起来
+    //TreeNode* listHead;
+    TreeNode* curNode;
+    BSTIterator(TreeNode* root) {
+        if(root == NULL)
+        {
+            //listHead = NULL;
+            curNode = NULL;
+        } else {
+           TreeNode* tmp = NULL;
+           TreeNode* cur = root;
+           translate(root, &tmp);
+           while(cur->left != NULL)
+           {
+               cur = cur->left;
+           }
+
+           //listHead = cur;
+           curNode = cur;
+        }
+    }
+    
+    /** @return the next smallest number */
+    int next() {
+        int temp = curNode->val;
+        curNode = curNode->right;
+        return temp;
+    }
+    
+    /** @return whether we have a next smallest number */
+    bool hasNext() {
+        return (curNode == NULL) ? false : true;
+    }
+
+    void translate(TreeNode* root, TreeNode** lastNode)
+    {
+        //先把左子树的链表排序
+        if(root->left)
+            translate(root->left, lastNode);
+        // 排完序后
+        root->left = *lastNode;
+        if(*lastNode)
+            (*lastNode)->right = root;
+        // 最左边的节点就是当前的root
+        (*lastNode) = root;
+        if(root->right)
+            translate(root->right, lastNode);
+    }
+};
+
+/**
+ * Your BSTIterator object will be instantiated and called as such:
+ * BSTIterator* obj = new BSTIterator(root);
+ * int param_1 = obj->next();
+ * bool param_2 = obj->hasNext();
+ */
+```  
+## 94. 二叉树的中序遍历  
+### 题目  
+给定一个二叉树，返回它的中序 遍历。  用迭代算法来解  
+### 题解   
+```
+栈S;  
+p= root;  
+while(p || S不空){  
+    while(p){  
+        p入S;  
+        p = p的左子树;  
+    }  
+    p = S.top 出栈;  
+    访问p;  
+    p = p的右子树;  
+}
+```  
+### 代码  
+```
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        // 利用一个栈,先进后出
+        vector<int> result;
+        stack<TreeNode*> s;
+        TreeNode* tmp = root;
+        while(tmp != NULL || !s.empty())
+        {
+            // 先将左子树压栈
+            while(tmp)
+            {
+                s.push(tmp);
+                tmp = tmp->left;
+            }
+            // 左子树压栈完后，再拿出来遍历
+            tmp = s.top();
+            s.pop();
+            result.push_back(tmp->val);
+            // 取出右子树
+            tmp = tmp->right;
+        }
+        return result;
+    }
+};
 ```

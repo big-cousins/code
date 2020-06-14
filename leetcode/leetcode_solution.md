@@ -362,4 +362,64 @@ public:
     }
 
 };
+```  
+## 1300. 转变数组后最接近目标值的数组和  
+### 题目  
+给你一个整数数组 arr 和一个目标值 target ，请你返回一个整数 value ，使得将数组中所有大于 value 的值变成 value 后，数组的和最接近  target （最接近表示两者之差的绝对值最小）。
+
+如果有多种使得和最接近 target 的方案，请你返回这些整数中的最小值。
+
+请注意，答案不一定是 arr 中的数字。
+
+示例 1：
+
+输入：arr = [4,9,3], target = 10
+输出：3
+解释：当选择 value 为 3 时，数组会变成 [3, 3, 3]，和为 9 ，这是最接近 target 的方案。
+示例 2：
+
+输入：arr = [2,3,5], target = 10
+输出：5
+示例 3：
+
+输入：arr = [60864,25176,27249,21296,20204], target = 56803
+输出：11361  
+### 题解  
+双重二分查找
+我们首先考虑题目的一个简化版本：我们需要找到 value，使得数组的和最接近 target 且不大于 target。可以发现，在[0,max(arr)]（即方法一中确定的上下界）的范围之内，随着 value 的增大，数组的和是严格单调递增的。这里「严格」的意思是，不存在两个不同的 value 值，它们对应的数组的和相等。这样一来，一定存在唯一的一个 value 值，使得数组的和接近且大于 target，所以要找到第一个大于target的value。并且由于严格单调递增的性质，我们可以通过二分查找的方法，找到这个 value 值，记为 value_lower。  
+### 代码  
+```
+class Solution {
+public:
+    int findBestValue(vector<int>& arr, int target) {
+        // 先排序
+        sort(arr.begin(), arr.end());
+        int n = arr.size();
+        vector<int> presum(arr.size() + 1); // 初始每个元素为0；
+        // 计算出前缀和
+        for(int i = 1; i <= n; ++i)
+            presum[i] = presum[i - 1] + arr[i - 1];
+
+        int left = 1, right = arr[n - 1]; // 即[1, max]
+        // 找第一个大于target的value
+        while(left < right)
+        {
+            int mid = (left + right) / 2;
+            int sum = 0;
+            
+            getsum(arr, presum, mid) < target ? left = mid + 1: right = mid ;
+            // 如果sum > target，则最接近target，且小于target的值在前面
+        }
+
+        return (abs(getsum(arr, presum, left) - target) < abs(getsum(arr, presum, left - 1) - target)) ? left : left - 1;
+    }
+
+    int getsum(vector<int>& arr, vector<int>& presum, int value)
+    {
+        // 找到第一个大于/等于mid的位置
+        vector<int>::iterator iter = lower_bound(arr.begin(), arr.end(), value); // 迭代器
+        int sum = presum[iter - arr.begin()] + (arr.end() - iter) * value;
+        return sum;
+    }
+};
 ```

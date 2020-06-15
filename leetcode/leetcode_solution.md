@@ -617,6 +617,44 @@ public:
 };
 ```
 
+## 513. 找树左下角的值  
+### 题目  
+给定一个二叉树，在树的最后一行找到最左边的值。  
+### 题解  
+广度优先遍历，只不过先存入右节点，然后再存入左节点，遍历结束，最后一个节点刚好是答案
+### 代码  
+```
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int findBottomLeftValue(TreeNode* root) {
+        if(root == NULL)
+            return 0;
+        queue<TreeNode*> queue1;
+        queue1.push(root);
+        TreeNode* tmp = NULL;
+        while(!queue1.empty())
+        {
+            tmp = queue1.front();
+            queue1.pop();
+            // 先将右边的节点入栈
+            if(tmp->right)
+                queue1.push(tmp->right);
+            if(tmp->left)
+                queue1.push(tmp->left);
+        }
+        return tmp->val;
+    }
+};
+```
   
 
 

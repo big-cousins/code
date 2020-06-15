@@ -655,6 +655,53 @@ public:
     }
 };
 ```
+
+## 1325. 删除给定值的叶子节点  
+### 题目  
+给你一棵以 root 为根的二叉树和一个整数 target ，请你删除所有值为 target 的 叶子节点 。
+
+注意，一旦删除值为 target 的叶子节点，它的父节点就可能变成叶子节点；如果新叶子节点的值恰好也是 target ，那么这个节点也应该被删除。
+
+也就是说，你需要重复此过程直到不能继续删除。
+### 代码  
+```
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* removeLeafNodes(TreeNode* root, int target) {
+        if(root == NULL)
+            return NULL;
+        return do_remove(root, target);
+    }
+
+    TreeNode* do_remove(TreeNode* root, int target)
+    {
+        // 如果有左子树, 左子树搞完
+        if(root->left)
+            root->left = do_remove(root->left, target);
+        // 如果有右子树，右子树搞完
+        if(root->right)
+            root->right = do_remove(root->right, target);
+
+        // 如果左子树和右子树都被干完后, 判断根的值是否为target
+        if(root->left == NULL && root->right == NULL)
+            if(root->val == target)
+                return NULL;
+        return root;
+    }
+    
+};
+```
   
 
 

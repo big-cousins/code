@@ -562,4 +562,63 @@ public:
         return result;
     }
 };
+```  
+## 14. 最长公共前缀  
+### 题目  
+编写一个函数来查找字符串数组中的最长公共前缀。
+
+如果不存在公共前缀，返回空字符串 ""。  
+示例 1:
+
+输入: ["flower","flow","flight"]  
+输出: "fl"  
+示例 2:  
+
+输入: ["dog","racecar","car"]  
+输出: ""  
+解释: 输入不存在公共前缀。  
+
+### 题解  
+横向扫描
+LCP(S1 … Sn) 表示字符串S1 … Sn的最长公共前缀。可以得到以下结论：LCP(S1 ... Sn) = LCP(LCP(S1, S2),S3), ... Sn)
+基于该结论，可以得到一种查找字符串数组中的最长公共前缀的简单方法。依次遍历字符串数组中的每个字符串，对于每个遍历到的字符串，更新最长公共前缀，当遍历完所有的字符串以后，即可得到字符串数组中的最长公共前缀
+
+### 代码  
 ```
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        int length = strs.size();
+        if(!length)
+            return "";
+        string prefix = strs[0];
+        for(int i = 1; i < length; ++i)
+        {
+            // 求第一个和第二个的prefix
+            prefix = longestCommonPrefix(prefix, strs[i]);
+            if(!prefix.size()){
+                break;
+            }   
+        }
+        return prefix;
+    }
+    string longestCommonPrefix(string& str1, string& str2)
+    {
+        int length = min(str1.size(), str2.size());
+        int index = 0;
+        while(index < length && str1[index] == str2[index])
+        {
+            ++index;
+        }
+        return str1.substr(0, index);
+
+    }
+
+};
+```
+
+  
+
+
+
+

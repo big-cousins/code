@@ -702,8 +702,55 @@ public:
     
 };
 ```
+## 面试题 04.08. 首个共同祖先
+### 题目  
   
+设计并实现一个算法，找出二叉树中某两个节点的第一个共同祖先。不得将其他的节点存储在另外的数据结构中。注意：这不一定是二叉搜索树。
 
+例如，给定如下二叉树: root = [3,5,1,6,2,0,8,null,null,7,4]
 
+### 代码  
+```
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        // 先判断是否为空
+        if(root == NULL)
+            return NULL;
+        // 用递归来做，一直往下递归，找到p/q后就返回，
+        // 寻找到的节点必然在根节点上，要么是最初的root，要么就是p/q
+        if(root == q || root == p)
+            return root;
+        // 两种情况: 两个节点在两个左右子树上；两个节点在一个左右子树上；
+        // 在两个左右子树上，直接返回root
+        // 看左子树有没有
+        TreeNode* leftNode = lowestCommonAncestor(root->left, p, q);
+        // 看右子树有没有
+        TreeNode* rightNode = lowestCommonAncestor(root->right, p, q);
+        // 在左右子树上
+        if(leftNode != NULL && rightNode != NULL)
+            return root;                  // 直接返回当前根节点
+        else {
+            // 如果有一个为NULL
+            if(leftNode != NULL)
+                return leftNode;
+            else if(rightNode != NULL)
+                return rightNode;
+            else
+                return NULL;
+        }
+
+    }
+};
+```
 
 

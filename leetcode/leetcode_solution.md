@@ -792,5 +792,78 @@ public:
     }
 };
 ```
+## 1123. 最深叶节点的最近公共祖先  
+### 题目  
+给你一个有根节点的二叉树，找到它最深的叶节点的最近公共祖先。
 
+回想一下：
+
+叶节点 是二叉树中没有子节点的节点
+树的根节点的 深度 为 0，如果某一节点的深度为 d，那它的子节点的深度就是 d+1
+如果我们假定 A 是一组节点 S 的 最近公共祖先，S 中的每个节点都在以 A 为根节点的子树中，且 A 的深度达到此条件下可能的最大值。
+ 
+
+示例 1：
+
+输入：root = [1,2,3]
+输出：[1,2,3]
+解释： 
+最深的叶子是值为 2 和 3 的节点。
+这些叶子的最近共同祖先是值为 1 的节点。
+返回的答案为序列化的 TreeNode 对象（不是数组）"[1,2,3]" 。
+示例 2：
+
+输入：root = [1,2,3,4]
+输出：[4]
+示例 3：
+
+输入：root = [1,2,3,4,5]
+输出：[2,4,5]
+
+### 题解  
+这个题目的例子有点搞混人，其实就是要求最深的叶子节点的最近公共父节点。如果最深的叶子节点没有兄弟，那么公共父节点就是它自己，否则返回它的父节点。
+思路：我们可以从某个节点A为根节点的子树思考，先求它左、右节点的高度和最近公共父节点。
+1、如果左、右节点的高度相同，那么公共父节点就是A。
+2、如果左节点的高度比右节点大，最深的叶子节点的最近公共父节点肯定是左节点返回的结果里面。
+3、如果右节点的高度比左节点大，最深的叶子节点的最近公共父节点肯定是右节点返回的结果里面。
+4、上面的每一步，都会导致高度加1.
+5、如果是空节点，那么高度为0.公共父节点为NULL。
+
+### 代码  
+```
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    
+    typedef pair<int, TreeNode*> Tr;
+
+    Tr leavesDFS(TreeNode* root) {
+        if (root == NULL) {
+            return Tr(0, NULL);
+        }
+        auto l = leavesDFS(root->left);
+        auto r = leavesDFS(root->right);
+        if (l.first == r.first) {
+            return Tr(l.first + 1, root);
+        } else if (l.first > r.first) {
+            return Tr(l.first + 1, l.second);
+        } else {
+            return Tr(r.first + 1, r.second);
+        }
+    }
+
+    TreeNode* lcaDeepestLeaves(TreeNode* root) {
+        return leavesDFS(root).second;
+    }
+
+};
+```
 

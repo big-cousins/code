@@ -752,5 +752,45 @@ public:
     }
 };
 ```
+## 979. 在二叉树中分配硬币
+### 题目  
+给定一个有 N 个结点的二叉树的根结点 root，树中的每个结点上都对应有 node.val 枚硬币，并且总共有 N 枚硬币。
+
+在一次移动中，我们可以选择两个相邻的结点，然后将一枚硬币从其中一个结点移动到另一个结点。(移动可以是从父结点到子结点，或者从子结点移动到父结点。)。
+
+返回使每个结点上只有一枚硬币所需的移动次数。
+
+### 代码
+```
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int res = 0;
+    int distributeCoins(TreeNode* root) {
+        if(root == NULL)
+            return 0;
+        dfs(root);
+        return res;
+    }
+
+    int dfs(TreeNode* root)
+    {
+        if(root == NULL)
+            return 0;
+        int left = dfs(root->left);   // 左子树给根节点多少个硬币; 如果为负数，说明根节点应给左子树
+        int right = dfs(root->right); // 右子树给根节点多少个硬币
+        res += abs(left) + abs(right);
+        return left + right + root->val - 1;
+    }
+};
+```
 
 

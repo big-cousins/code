@@ -866,4 +866,46 @@ public:
 
 };
 ```
+## 144. 二叉树的前序遍历
+### 题目
+给定一个二叉树，返回它的 前序 遍历。不用递归
+### 题解
+递归的本质就是压栈，了解递归本质后就完全可以按照递归的思路来迭代。
+怎么压，压什么？压的当然是待执行的内容，后面的语句先进栈，所以进栈顺序就决定了前中后序。
+
+### 代码  
+```
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        stack<TreeNode*> tmp;
+        vector<int> res;
+        if(root != NULL)
+            tmp.push(root);
+        while(!tmp.empty())
+        {
+            // 先拿出栈顶的数据,并出栈
+            TreeNode* root = tmp.top();
+            tmp.pop();
+            res.push_back(root->val);
+            // 由于是先序遍历，所以将右节点先压栈
+            if(root->right != NULL)
+                tmp.push(root->right);
+            // 将左节点后压栈
+            if(root->left != NULL)
+                tmp.push(root->left);
+        }
+        return res;
+    }
+};
+```
 

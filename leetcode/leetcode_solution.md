@@ -1001,4 +1001,60 @@ public:
     }
 };
 ```
+## 95. 不同的二叉搜索树 II
+### 题目
+给定一个整数 n，生成所有由 1 ... n 为节点所组成的 二叉搜索树 。
 
+### 代码 
+```
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<TreeNode*> generateTrees(int n) {
+        if(n <= 0) return {};
+        return dogenerateTrees(1, n);
+    }
+    
+    vector<TreeNode*> dogenerateTrees(int start, int end)
+    {
+        vector<TreeNode*> res;
+        if(start > end)
+        {
+            res.push_back(nullptr);
+            return res;
+        }
+        
+        // 遍历
+        for(int i = start; i <= end; ++i)
+        {
+            // 左子树
+            auto leftlist = dogenerateTrees(start, i - 1);
+            // 右子树
+            auto rightlist = dogenerateTrees(i + 1, end);
+           
+            // 双遍历
+            for(auto leftNode :leftlist) {
+                for(auto rightNode:rightlist){
+                     // 根节点
+                    TreeNode* root = new TreeNode(i);
+                    root->left = leftNode;
+                    root->right = rightNode;
+                    res.push_back(root);
+                }
+                    
+            }
+        }
+        return res;
+    }
+};
+```

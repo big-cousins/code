@@ -1058,3 +1058,48 @@ public:
     }
 };
 ```
+## 1026. 节点与其祖先之间的最大差值
+### 题目  
+给定二叉树的根节点 root，找出存在于不同节点 A 和 B 之间的最大值 V，其中 V = |A.val - B.val|，且 A 是 B 的祖先。
+
+（如果 A 的任何子节点之一为 B，或者 A 的任何子节点是 B 的祖先，那么我们认为 A 是 B 的祖先）
+
+### 题解  
+就一个节点来说所谓最大差值，就是祖先的最大值或者最小值和自己的val的差值。
+只需要知道所有祖先可能的最大值和最小值，在遍历时携带传递即可。
+
+### 代码  
+```
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int result = 0;
+    int maxAncestorDiff(TreeNode* root) {
+        // 最大差值就是该节点与父结点的最大值和最小值的差值
+        if(root == NULL)
+            return 0;
+        dfs(root, root->val, root->val);
+        return result;
+    }
+
+    void dfs(TreeNode* root, int max_befor, int min_before)
+    {
+        if(root == NULL)
+            return;
+        result = max(max(abs(root->val - max_befor), abs(root->val - min_before)), result);
+        max_befor = max(root->val, max_befor);
+        min_before = min(root->val, min_before);
+        dfs(root->left, max_befor, min_before);
+        dfs(root->right, max_befor, min_before);
+    }
+
+};
+```

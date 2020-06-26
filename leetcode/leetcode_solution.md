@@ -1103,3 +1103,62 @@ public:
 
 };
 ```
+## 1457. 二叉树中的伪回文路径
+### 题目  
+给你一棵二叉树，每个节点的值为 1 到 9 。我们称二叉树中的一条路径是 「伪回文」的，当它满足：路径经过的所有节点值的排列中，存在一个回文序列。
+
+请你返回从根到叶子节点的所有路径中 伪回文 路径的数目。
+
+### 题解  
+这题主要难点时如何确定路径为伪回文。
+题中节点的值只能为1-9,充分利用这点。
+我们用一个二进制数来维护判断是不是伪回文。
+二进制数第一位的1，0表示值为1的节点奇偶性，第二位1，0表示值为2的节点奇偶性。。。
+
+按 2,3,3路径来说。
+2节点来的时候 temp 的二进制为00000010; temp^=1<<2;
+3节点来的时候 temp 的二进制为00000110; temp^=1<<3;
+3节点再来的时候 temp 的二进制为00000010; temp^=1<<3;
+当到达叶子节点的时候，如果有偶数个元素,如果是伪回文，temp==0;
+奇数个时，temp的二进制有一位为1.temp&(temp-1)==0
+
+### 代码
+```
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int result = 0;
+    int pseudoPalindromicPaths (TreeNode* root) {
+        if(root == NULL)
+            return 0;
+        dfs(root, 0);
+        return result;
+    }
+
+    void dfs(TreeNode* root, int temp)
+    {
+        temp ^= (1 << root->val);
+        if((root->left == NULL) && (root->right == NULL))
+        {
+            // 判断是否是回文数
+            if(temp == 0 || ((temp - 1) & temp) == 0)
+                result ++;
+        }
+
+        if(root->left != NULL) dfs(root->left, temp);
+        if(root->right != NULL) dfs(root->right, temp);
+
+
+    }
+};
+```

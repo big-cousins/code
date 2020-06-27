@@ -1497,5 +1497,56 @@ public:
     }
 };
 ```
+## 662. 二叉树最大宽度
+### 题目
+给定一个二叉树，编写一个函数来获取这个树的最大宽度。树的宽度是所有层中的最大宽度。这个二叉树与满二叉树（full binary tree）结构相同，但一些节点为空。
+
+每一层的宽度被定义为两个端点（该层最左和最右的非空节点，两端点间的null节点也计入长度）之间的长度。
+
+### 题解  
+关键点在于这一层的长度是由这一层的最左侧节点与最右侧节点来计算。
+与树中的值没有关系，请屏蔽里面的内容来解题。
+假设取第二层，即 d=2 d = 2d=2 的某个结点。
+
+满二叉树中，某个结点的左孩子节点位置在 2∗d 2 * d2∗d，右孩子节点位置在 2∗d+1 2*d+12∗d+1
+想办法记录当前层其中一侧(最左侧)的节点所在位置，之后遇到当前层的其它节点时计算它们之间的距离。
+这里将图片的数字理解成位置，比如 4~6 就是 6−4+1=3 6-4+1 = 36−4+1=3，即距离3
+
+### 代码 
+```
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int widthOfBinaryTree(TreeNode* root) {
+        if(root == NULL)
+            return 0;
+        queue<pair<TreeNode*, unsigned long long>> q;
+        q.push({root, 0});
+        int result = 0;
+        while(!q.empty())
+        {
+            int size = q.size();
+            result = max(int(q.back().second - q.front().second + 1), result);
+            for(int i = 0; i < size; ++i)
+            {
+                TreeNode* cur = q.front().first;
+                unsigned long long pos = q.front().second;
+                q.pop();
+                if(cur->left) q.push({cur->left, 2 * pos});
+                if(cur->right) q.push({cur->right, 2 * pos + 1});
+            }
+        }
+        return result;
+    }
+};
+```
 
 

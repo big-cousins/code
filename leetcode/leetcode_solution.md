@@ -1417,5 +1417,52 @@ TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
         }
     }
 ```
+## 652. 寻找重复的子树
+### 题目
+给定一棵二叉树，返回所有重复的子树。对于同一类的重复子树，你只需要返回其中任意一棵的根结点即可。
+
+两棵树重复是指它们具有相同的结构以及相同的结点值。
+
+### 题解
+本题需要寻找重复的子树，这里重复的子树是指具有相同的结构以及相同的结点值。我们需要进行序列化的操作。首先要介绍一下序列化：
+
+序列化是将一个数据结构或者对象转换为连续的比特位的操作，进而可以将转换后的数据存储在一个文件或者内存中，同时也可以通过网络传输到另一个计算机环境，采取相反方式重构得到原数据。
+
+通过一个编码还有一个解码的方式来得到原数据，那么就从侧面说明，对于原数据来说，使用相同序列化后的结果肯定是唯一的。所以，既然我们要找重复的子树，那么我们只需要将所有子树都使用相同的方式进行序列化，那在此过程中如果发现有相同的序列，那我们就可以找出相同的子树。
+
+至此，对于我们解二叉树的题无非就以下几种思路：
+
+先序遍历（深度优先搜索）
+中序遍历（深度优先搜索）（尤其二叉搜索树）
+后序遍历（深度优先搜索）
+层序遍历（广度优先搜索）
+序列化与反序列化（结构唯一性问题）
+序列化二叉树示意图：
+
+### 代码
+```
+class Solution {
+public:
+    vector<TreeNode*> findDuplicateSubtrees(TreeNode* root) {
+        vector<TreeNode*> res;
+        unordered_map<string, int> mp;
+        dfs(root, res, mp);
+        return res;
+    }
+    
+    string dfs(TreeNode* root, vector<TreeNode*>& res, unordered_map<string, int>& mp){
+        if(root==0) return "";
+        //二叉树先序序列化
+        string str = to_string(root->val) + "," + dfs(root->left, res, mp) + "," + dfs(root->right, res, mp);
+        
+        if(mp[str]==1){
+            res.push_back(root);
+        } 
+        mp[str]++;
+        return str;
+    }
+};
+
+```
 
 

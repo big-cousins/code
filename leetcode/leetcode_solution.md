@@ -1464,5 +1464,38 @@ public:
 };
 
 ```
+## 面试题 04.05. 合法二叉搜索树
+### 题目
+实现一个函数，检查一棵二叉树是否为二叉搜索树。
+
+### 题解
+左子树只要小于根节点就好，右子树得大于根节点，小于根节点的根节点；
+### 代码
+```
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        return doisValidBST(root, NULL, NULL);
+    }
+
+    bool doisValidBST(TreeNode* root, TreeNode* min, TreeNode* max)
+    {
+        if(root == NULL)
+            return true;
+        if(min != NULL && root->val <= min->val) return false;
+        if(max != NULL && root->val >= max->val) return false;
+        return doisValidBST(root->left, min, root) && doisValidBST(root->right, root, max);
+    }
+};
+```
 
 

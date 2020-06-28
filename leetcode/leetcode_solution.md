@@ -1548,5 +1548,97 @@ public:
     }
 };
 ```
+## 863. 二叉树中所有距离为 K 的结点
+### 题目
+给定一个二叉树（具有根结点 root）， 一个目标结点 target ，和一个整数值 K 。
+
+返回到目标结点 target 距离为 K 的所有结点的值的列表。 答案可以以任何顺序返回。
+
+ 
+
+示例 1：
+
+输入：root = [3,5,1,6,2,0,8,null,null,7,4], target = 5, K = 2
+输出：[7,4,1]
+解释：
+所求结点为与目标结点（值为 5）距离为 2 的结点，
+值分别为 7，4，以及 1
+
+### 题解
+关键在于将子节点和父节点先存起来，然后宽度优先遍历，找到第K层
+```
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    unordered_map<TreeNode*, TreeNode*> parent_map;
+    vector<int> distanceK(TreeNode* root, TreeNode* target, int K) {
+        // 先把节点的父结点存进去
+        dfs(root, NULL);
+        vector<int> result;
+        queue<TreeNode*> queue1;
+        unordered_set<TreeNode*> visted;
+        if(target != NULL) {
+            queue1.push(target);
+            visted.insert(target);
+        }
+
+        while(!queue1.empty())
+        {
+            if(K-- == 0)
+            {
+                while(!queue1.empty())
+                {
+                    result.push_back(queue1.front()->val);
+                    queue1.pop();
+                }
+                return result;
+            } else {
+                int size = queue1.size();
+                for(int i = 0; i < size; ++i)
+                {
+                    TreeNode* node = queue1.front();
+                    queue1.pop();
+                    if(node->left && visted.find(node->left) == visted.end())
+                    {
+                        queue1.push(node->left);
+                        visted.insert(node->left);
+                    }
+                    if(node->right && visted.find(node->right) == visted.end())
+                    {
+                        queue1.push(node->right);
+                        visted.insert(node->right);
+                    }
+                    if(parent_map[node] != NULL && visted.find(parent_map[node]) == visted.end())
+                    {
+                        queue1.push(parent_map[node]);
+                        visted.insert(parent_map[node]);
+                    }
+                }
+            }
+        }
+
+        return result;
+            
+    }
+
+    void dfs(TreeNode* child, TreeNode* parent)
+    {
+        if(child != NULL)
+        {
+            parent_map.insert({child, parent});
+            dfs(child->left, child);
+            dfs(child->right, child);
+        }
+    }
+};
+```
 
 

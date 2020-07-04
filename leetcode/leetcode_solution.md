@@ -1767,3 +1767,43 @@ public:
 };
 ```
 
+## 141. 环形链表
+### 题目  
+给定一个链表，判断链表中是否有环。
+
+为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。
+
+### 代码
+```
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        // 用双指针来搞，一个指针每次走两步，另一个指针每次走一步，如果他们相遇，则说明链表中有环
+        if(head == NULL)
+            return false;
+        bool is_cycle = false;
+        ListNode* two_step = head;
+        ListNode* one_step = head;
+        while(two_step != NULL && two_step->next != NULL)
+        {
+            two_step = two_step->next->next;
+            one_step = one_step->next;
+            if(two_step == one_step) {
+                is_cycle = true;
+                break;
+            }  
+        }
+
+        return is_cycle;
+
+    }
+};
+```

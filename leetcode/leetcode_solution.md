@@ -1731,4 +1731,39 @@ public:
     }
 };
 ``` 
+## 53. 最大子序和
+### 题目
+给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+
+示例:
+
+输入: [-2,1,-3,4,-1,2,1,-5,4],
+输出: 6
+解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。
+
+### 题解  
+假设 nums 数组的长度是 nn，下标从 0 到 n - 1。用 f(i) 代表以第 i 个数结尾的「连续子数组的最大和；
+那么 f(i) = max(f(i - 1) + nums[i], nums[i])
+
+
+
+### 代码 
+```
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int size = nums.size();
+        if(size == 0)
+            return 0;
+        int pre = nums[0];
+        int max_number = pre;
+        for(int i = 1; i < size; ++i)
+        {
+            pre = max(pre + nums[i], nums[i]);
+            max_number = max(pre, max_number);
+        }
+        return max_number;
+    }
+};
+```
 

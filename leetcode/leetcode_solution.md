@@ -1966,3 +1966,43 @@ public:
 };
 ```
 
+## 300. 最长上升子序列
+### 题目  
+给定一个无序的整数数组，找到其中最长上升子序列的长度。
+
+示例:
+
+输入: [10,9,2,5,3,7,101,18]
+输出: 4 
+解释: 最长的上升子序列是 [2,3,7,101]，它的长度是 4。
+
+### 代码  
+```
+class Solution {
+public:
+    // 动态规划来搞，
+    // dp[i]表示以nums[i]为结尾的最长递增子序列长度
+    // 以nums[i]为结尾的最长递增子序列中，nums[0,...,i-1]中所有比nums[i]小的都可以做为倒数第二个数，
+    // 在这么多倒数第二个数的选择中，以哪个数结尾的最长递增子序列最长，就选哪个数为倒数第二个数，
+    // 所以转移方程就出来了 dp[i] = max{dp[j] + 1}; 其中j < i; 且nums[j] < nums[i] 
+    int lengthOfLIS(vector<int>& nums) {
+        int length = nums.size();
+        int res = 0;
+        // 以nums[i]为结尾的递增子序列长度最短为1，所以先赋值dp[i] = 1
+        vector<int> dp(length, 1);
+        for(int i = 0; i < length; ++i)
+        {
+            for(int j = 0; j < i; ++j)
+            {
+                if(nums[i] > nums[j])
+                    dp[i] = max(dp[i], dp[j] + 1);
+            }
+
+            res = dp[i] > res ? dp[i] : res;
+        }
+
+        return res;
+    }
+};
+```
+

@@ -2006,3 +2006,35 @@ public:
 };
 ```
 
+## 560. 和为K的子数组
+### 题目  
+给定一个整数数组和一个整数 k，你需要找到该数组中和为 k 的连续的子数组的个数。
+
+示例 1 :
+
+输入:nums = [1,1,1], k = 2
+输出: 2 , [1,1] 与 [1,1] 为两种不同的情况。
+
+### 代码  
+```
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        // 用map来搞
+        // 假设s[i] = nums[0] + nums[1] + ... + nums[i];
+        // 那么连续的子数组nums[i] + nums[i + 1] + ... + nums[j] = k, 可以用s[j] - s[i - 1] = k来表示，这里把s[j]固定
+        // 那么只需找到s[i - 1] = s[j] - k，用hash表记录下s[i - 1]的值出现的次数
+        map<int, int> hash;
+        hash[0] = 1;
+        int temp = 0;
+        int res = 0;
+        for(auto i : nums)
+        {
+            temp += i;
+            if(hash.find(temp - k) != hash.end()) res += hash[temp - k];
+            hash[temp]++;
+        }
+        return res;
+    }
+};
+```

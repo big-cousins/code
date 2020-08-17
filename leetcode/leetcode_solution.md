@@ -2038,3 +2038,74 @@ public:
     }
 };
 ```
+
+## 15. 三数之和
+### 题目
+给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有满足条件且不重复的三元组。
+
+注意：答案中不可以包含重复的三元组。
+
+ 
+
+示例：
+
+给定数组 nums = [-1, 0, 1, 2, -1, -4]，
+
+满足要求的三元组集合为：
+[
+  [-1, 0, 1],
+  [-1, -1, 2]
+]
+
+### 代码       
+```
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> res;
+        // 边界
+        int n = nums.size();
+        if(n < 3)
+            return res;
+        // 既然要不重复，就先将nums排序
+        sort(nums.begin(), nums.end());
+
+        // 不可避免要做循环, 先固定第一个
+        for(int i = 0; i < n; ++i)
+        {
+            if(nums[i] > 0)
+                break;          // 如果当前数字大于0，则三数之和一定大于0，所以结束循环
+            // 遍历i时，需要判断与上一个是否相等，如果相等，就下一个循环
+            // 如 [-1, -1, 0, 1], 第一轮已经选出了[-1, 0 , 1]，现在 i = 1，nums[i] == nums[i - 1], 为了避免重复，直接 continue。
+            if(i > 0 && nums[i] == nums[i - 1]) continue;
+
+            // 第一个固定了，接着用双指针开始，一个往右，一个往左
+            int left = i + 1;
+            int right = n - 1;
+            while(left < right)
+            {
+                int sum = nums[i] + nums[left] + nums[right];
+                // 如果sum刚好等于0,
+                if(sum == 0)
+                {
+                    res.push_back({nums[i], nums[left], nums[right]});
+                    // left往右移, 移动的同时，如果有重复的，则继续往右
+                    while(left < right && nums[left] == nums[left + 1])
+                        left ++;            // 去重
+                    while(left < right && nums[right] == nums[right - 1])
+                        right --;
+                    left ++;
+                    right --;
+                } else if(sum < 0) {
+                    // 如果sum < 0 ，说明left要往右移
+                    left ++;    // 不用判断重复，如果重复，说明下次还是sum < 0
+                } else          // 如果sum > 0, 说明right要往左移
+                    right --;
+
+            }
+        }
+
+        return res;
+    }
+};
+```  

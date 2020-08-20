@@ -2109,3 +2109,57 @@ public:
     }
 };
 ```  
+
+## 3. 无重复字符的最长子串
+### 题目  
+给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
+
+示例 1:
+
+输入: "abcabcbb"
+输出: 3 
+解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
+示例 2:
+
+输入: "bbbbb"
+输出: 1
+解释: 因为无重复字符的最长子串是 "b"，所以其长度为 1。
+示例 3:
+
+输入: "pwwkew"
+输出: 3
+解释: 因为无重复字符的最长子串是 "wke"，所以其长度为 3。
+     请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。
+
+### 代码  
+```
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        // 1, 用unordered_set来判断是否有重复的字符
+        // 2, 用滑动窗口，上一个无重复字符的范围(i, j), j为右边滑动的起点
+        unordered_set<char> sets;
+        int n = s.length();
+        int left = 0, right = -1, res = 0;
+        for(; left < n; left ++)
+        {
+            // 左指针每向右移动一个，就剔除该元素
+            if(left != 0)
+            {
+                sets.erase(s[left - 1]);
+            }
+            // 右指针向右移动，如果没有重复的，就继续往右，直到碰到重复的
+            while((right + 1 < n) && (!sets.count(s[right+1])))
+            {
+                sets.insert(s[right+1]);
+                right++;
+            }
+
+            
+            res = max(res, right - left + 1);
+            
+        }
+        return res;
+    }
+};
+```

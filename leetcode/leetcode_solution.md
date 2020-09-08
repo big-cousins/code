@@ -2163,3 +2163,71 @@ public:
     }
 };
 ```
+## 79. 单词搜索  
+### 题目  
+给定一个二维网格和一个单词，找出该单词是否存在于网格中。
+
+单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。
+
+ 
+
+示例:
+
+board =
+[
+  ['A','B','C','E'],
+  ['S','F','C','S'],
+  ['A','D','E','E']
+]
+
+给定 word = "ABCCED", 返回 true
+给定 word = "SEE", 返回 true
+给定 word = "ABCB", 返回 false
+
+### 代码  
+```
+class Solution {
+public:
+    bool exist(vector<vector<char>>& board, string word) {
+        // 深度优先 + 回溯法
+        // 行
+        int row = board.size();
+        if(row == 0) return false;
+        // 列
+        int column = board[0].size();
+        // 双重遍历
+        for(int i = 0; i < row; ++i)
+        {
+            for(int j = 0; j < column; ++j)
+            {
+                if(dfs(board, word, i, j, 0))
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
+    bool dfs(vector<vector<char>>& board, string word, int row_i, int column_j, int index)
+    {
+        // 边界检查，如果超出界限了，直接返回false; 如果当前值不匹配word[index]，同样返回false
+        if(row_i >= board.size() || row_i < 0 || column_j >= board[0].size() || column_j < 0 || board[row_i][column_j] != word[index])
+            return false;
+        // 如果单词已经遍历完, 就返回true
+        if(index == word.length() - 1) return true;
+
+        // 为了避免重复使用，将已访问的数据置为0
+        char temp = board[row_i][column_j];
+        board[row_i][column_j] = '\0';
+        // 上下左右遍历
+        if(dfs(board, word, row_i - 1, column_j, index+1) ||           // 上
+           dfs(board, word, row_i + 1, column_j, index+1) ||           // 下
+           dfs(board, word, row_i, column_j - 1, index+1) ||           // 左
+           dfs(board, word, row_i, column_j + 1, index+1)              // 右
+        ) return true;
+        // 如果没有匹配，换回来（回溯）
+        board[row_i][column_j] = temp;
+        return false;
+    }
+};
+```
